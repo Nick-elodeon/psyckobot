@@ -2,7 +2,6 @@ import config
 import telebot
 from telebot import types
 import random
-print('222')
 bot = telebot.TeleBot(config.TOKEN)
 
 love = ["Если хочешь встретить любовь всей своей жизни — посмотри в зеркало.",
