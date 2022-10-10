@@ -1,5 +1,5 @@
 import config
-import responses
+from responses import sample_responses
 import telebot
 from telebot import types
 import random
