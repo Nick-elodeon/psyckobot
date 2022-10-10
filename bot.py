@@ -72,8 +72,8 @@ def check2(call):
 def hi(call):
     bot.send_message (call.message.chat.id,"Пожалуйста, выбери сферу, которая тебя интересует", reply_markup = options_markup())
 
-def sample_responses(input_text):
-    user_message = str(input_text).lower()
+def sample_responses(message):
+    user_message = str(message).lower()
 
     if user_message in ("Привет", "Привет!", "Прив"):
         return "Привет!"
