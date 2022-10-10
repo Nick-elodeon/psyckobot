@@ -1,5 +1,5 @@
 import config
-from responses import sample_responses
+from datetime import datetime
 import telebot
 from telebot import types
 import random
@@ -71,6 +71,20 @@ def check2(call):
 
 def hi(call):
     bot.send_message (call.message.chat.id,"Пожалуйста, выбери сферу, которая тебя интересует", reply_markup = options_markup())
+
+def sample_responses(input_text):
+    user_message = str(input_text).lower()
+
+    if user_message in ("Привет", "Привет!", "Прив"):
+        return "Привет!"
+    
+    if user_message in ("Кто ты?", "Что ты за бот?"):
+        return ("Привет, я Психология бот")
+    
+    if user_message in ("Время?", "Время"):
+        now = datetime.now()
+        date_time = now.strftime("%d/%m/%y, %H:%M:%S")
+        return str(date_time)
 
 @bot.message_handler(content_types = ['text'])
 def callback_call(message):
