@@ -72,20 +72,6 @@ def check2(call):
 def hi(call):
     bot.send_message (call.message.chat.id,"Пожалуйста, выбери сферу, которая тебя интересует", reply_markup = options_markup())
 
-def sample_responses(message):
-    user_message = str(message).lower()
-
-    if user_message in ("Привет", "Привет!", "Прив"):
-        return "Привет!"
-    
-    if user_message in ("Кто ты?", "Что ты за бот?"):
-        return ("Привет, я Психология бот")
-    
-    if user_message in ("Время?", "Время"):
-        now = datetime.now()
-        date_time = now.strftime("%d/%m/%y, %H:%M:%S")
-        return str(date_time)
-
 @bot.message_handler(content_types = ['text'])
 def callback_call(message):
     if message.text == "Любовь 💋":
@@ -100,6 +86,22 @@ def callback_call(message):
         msg2 = random.choice(career)
         bot.send_message(message.chat.id, msg2)
         bot.send_message(message.chat.id, "Хочешь услышать еще что-то? Выбери сферу и я пришлю тебе цитату на выбранную тобой тему!")
+    else:
+        bot.send_message (message.chat.id,"Я не знаю что тебе ответить на это🥲\n Выбери интересующую тебя сферу и я вышлю тебе цитату на эту тему!", reply_markup = options_markup())
+
+def sample_responses(message):
+    message.text = str(message).lower()
+
+    if message.text in ("Привет", "Привет!", "Прив"):
+        return "Привет!"
+    
+    if message.text in ("Кто ты?", "Что ты за бот?"):
+        return ("Привет, я Психология бот")
+    
+    if message.text in ("Время?", "Время"):
+        now = datetime.now()
+        date_time = now.strftime("%d/%m/%y, %H:%M:%S")
+        return str(date_time)
     else:
         bot.send_message (message.chat.id,"Я не знаю что тебе ответить на это🥲\n Выбери интересующую тебя сферу и я вышлю тебе цитату на эту тему!", reply_markup = options_markup())
 
