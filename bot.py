@@ -3,11 +3,18 @@ from datetime import datetime
 import telebot
 from telebot import types
 import random
+import locale
+
+locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
+
 bot = telebot.TeleBot(config.TOKEN)
 
 love = ["Если хочешь встретить любовь всей своей жизни — посмотри в зеркало.",
         "Такой вот парадокс: мы совершаем подвиги для тех, кому до нас уже нет никакого дела, а любят нас те, кому мы нужны и без всяких подвигов...",
-        "Нет ничего хуже, чем любить кого-то, кто никогда не перестанет тебя разочаровывать."
+        "Нет ничего хуже, чем любить кого-то, кто никогда не перестанет тебя разочаровывать.",
+        "Любите друг друга, но не превращайте любовь в цепи. Пусть лучше она будет волнующим морем между берегами ваших душ.",
+        "Я люблю тебя. Я тебя люблю. Я мысленно посылаю эти слова из своих пальцев в его, вверх по руке прямо в сердце. Услышь меня. Я тебя люблю.",
+        "Без любви жить легче. Но без неё нет смысла."
         ]
 motivation = ["Чем усерднее вы работаете, тем более удачливым вы становитесь",
               "Нет волшебства, чтобы мечта стала реальностью. Это требует решимости и упорного труда", 
@@ -28,7 +35,7 @@ def start_markup():
     return markup
 
 def options_markup():
-    markup2 = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
+    markup2 = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True, row_width = 2, one_time_keyboard=True)
     item1 = types.KeyboardButton("Любовь 💋")
     item2 = types.KeyboardButton("Мотивация 💪🏼")
     item3 = types.KeyboardButton("Карьера 📈")
@@ -72,36 +79,49 @@ def check2(call):
 def hi(call):
     bot.send_message (call.message.chat.id,"Пожалуйста, выбери сферу, которая тебя интересует", reply_markup = options_markup())
 
+
+@bot.message_handler(func = lambda message: message.text == 'Привет!')
+@bot.message_handler(func = lambda message: message.text == 'Привет')
+@bot.message_handler(func = lambda message: message.text == 'привет')
+def privet(message):
+    bot.reply_to(message, "Привет, <b>{0.first_name}!</b> Как твои дела?".format(message.from_user, bot.get_me()), parse_mode = 'HTML')
+
+@bot.message_handler(func = lambda message: message.text == 'Хорошо')
+@bot.message_handler(func = lambda message: message.text == 'хорошо')
+@bot.message_handler(func = lambda message: message.text == 'Хорошо!')
+@bot.message_handler(func = lambda message: message.text == 'хорошо!')
+def privet(message):
+    bot.reply_to(message, "Мои тоже! Чтобы улучшить свое настроение, я могу прислать тебе цитаты, чтобы подбодрить тебя.\n<i>Пожалуйста, выбери сферу, которая тебя интересует:</i>".format(message.from_user, bot.get_me()), parse_mode = 'HTML', reply_markup = options_markup())
+
+@bot.message_handler(func = lambda message: message.text == 'кто ты')
+@bot.message_handler(func = lambda message: message.text == 'Кто ты')
+@bot.message_handler(func = lambda message: message.text == 'Кто ты?')
+@bot.message_handler(func = lambda message: message.text == 'кто ты?')
+def privet(message):
+    bot.reply_to(message, "{0.first_name}, я бот, ".format(message.from_user, bot.get_me()), parse_mode = 'HTML')
+
+@bot.message_handler(commands=["time"])
+def time(message):
+    now = datetime.today()
+    date = now.strftime("%d-%b-%Y")
+    time = now.strftime("%H:%M:%S")
+    bot.send_message(message.chat.id, "Сегодня, за окном " + date + " и время сейчас " + time)
+
 @bot.message_handler(content_types = ['text'])
 def callback_call(message):
+
     if message.text == "Любовь 💋":
         msg = random.choice(love)
         bot.send_message(message.chat.id, msg)
-        bot.send_message(message.chat.id, "Хочешь прочитать что-то ещё? Выбери сферу и я пришлю тебе цитату на выбранную тобой тему!")
+        bot.send_message(message.chat.id, "Хочешь прочитать что-то ещё? Выбери сферу и я пришлю тебе цитату на выбранную тобой тему!", reply_markup = options_markup())
     elif message.text == "Мотивация 💪🏼":
         msg1 = random.choice(motivation)
         bot.send_message(message.chat.id, msg1)
-        bot.send_message(message.chat.id, "Хочешь услышать еще что-то? Выбери сферу и я пришлю тебе цитату на выбранную тобой тему!")
+        bot.send_message(message.chat.id, "Хочешь услышать еще что-то? Выбери сферу и я пришлю тебе цитату на выбранную тобой тему!", reply_markup = options_markup())
     elif message.text == "Карьера 📈":
         msg2 = random.choice(career)
         bot.send_message(message.chat.id, msg2)
-        bot.send_message(message.chat.id, "Хочешь услышать еще что-то? Выбери сферу и я пришлю тебе цитату на выбранную тобой тему!")
-    else:
-        bot.send_message (message.chat.id,"Я не знаю что тебе ответить на это🥲\n Выбери интересующую тебя сферу и я вышлю тебе цитату на эту тему!", reply_markup = options_markup())
-
-def sample_responses(message):
-    message.text = str(message).lower()
-
-    if message.text in ("Привет", "Привет!", "Прив"):
-        return "Привет!"
-    
-    if message.text in ("Кто ты?", "Что ты за бот?"):
-        return ("Привет, я Психология бот")
-    
-    if message.text in ("Время?", "Время"):
-        now = datetime.now()
-        date_time = now.strftime("%d/%m/%y, %H:%M:%S")
-        return str(date_time)
+        bot.send_message(message.chat.id, "Хочешь услышать еще что-то? Выбери сферу и я пришлю тебе цитату на выбранную тобой тему!", reply_markup = options_markup())
     else:
         bot.send_message (message.chat.id,"Я не знаю что тебе ответить на это🥲\n Выбери интересующую тебя сферу и я вышлю тебе цитату на эту тему!", reply_markup = options_markup())
 
