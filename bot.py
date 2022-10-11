@@ -106,7 +106,7 @@ def privet(message):
 @bot.message_handler(func = lambda message: message.text == 'Кто ты?')
 @bot.message_handler(func = lambda message: message.text == 'кто ты?')
 def privet(message):
-    bot.reply_to(message, "{0.first_name}, я бот, ".format(message.from_user, bot.get_me()), parse_mode = 'HTML')
+    bot.reply_to(message, "{0.first_name}, я бот, который будет высылать тебе цитаты на интересующую тебя сферу.\nНадеюсь, мне удастся тебя подбодрить ими".format(message.from_user, bot.get_me()), parse_mode = 'HTML')
 
 @bot.message_handler(commands=["time"])
 def time(message):
