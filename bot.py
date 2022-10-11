@@ -3,9 +3,6 @@ from datetime import datetime
 import telebot
 from telebot import types
 import random
-import locale
-
-locale.setlocale(locale.LC_ALL, 'ru-Ru.UTF-8')
 
 bot = telebot.TeleBot(config.TOKEN)
 
@@ -111,7 +108,7 @@ def privet(message):
 @bot.message_handler(commands=["time"])
 def time(message):
     now = datetime.today()
-    date = now.strftime("%d-%b-%Y")
+    date = now.strftime("%d-%m-%Y")
     time = now.strftime("%H:%M:%S")
     bot.send_message(message.chat.id, "Сегодня, за окном " + date + " и время сейчас " + time)
 
