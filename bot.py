@@ -7,6 +7,9 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 bot = telebot.TeleBot(os.getenv('TOKEN'))
 
+import locale
+locale.setlocale(locale.LC_ALL, 'ru-Ru')
+
 love = [
 "Если хочешь встретить любовь всей своей жизни — посмотри в зеркало.",
 "Такой вот парадокс: мы совершаем подвиги для тех, кому до нас уже нет никакого дела, а любят нас те, кому мы нужны и без всяких подвигов...",
