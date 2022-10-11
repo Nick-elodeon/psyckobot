@@ -5,7 +5,7 @@ from telebot import types
 import random
 import locale
 
-locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
+locale.setlocale(locale.LC_ALL, 'ru-Ru.UTF-8')
 
 bot = telebot.TeleBot(config.TOKEN)
 
