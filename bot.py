@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 import telebot
 from telebot import types
 import random
@@ -119,8 +119,7 @@ def time(message):
     now = datetime.today()
     date = now.strftime("%d-%m-%Y")
     time = now.strftime("%H:%M:%S")
-    new_time = time + timedelta(hours = 3)
-    bot.send_message(message.chat.id, "Сегодня, за окном " + date + " и время сейчас " + new_time)
+    bot.send_message(message.chat.id, "Сегодня, за окном " + date + " и время сейчас " + int(time)+3)
 
 @bot.message_handler(content_types = ['text'])
 def callback_call(message):
