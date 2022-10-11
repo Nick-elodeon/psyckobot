@@ -1,9 +1,9 @@
-import os
+import config
 from datetime import datetime
 import telebot
 from telebot import types
 import random
-bot = telebot.TeleBot(token=os.getenv('TOKEN'))
+bot = telebot.TeleBot(config.TOKEN)
 
 love = ["Если хочешь встретить любовь всей своей жизни — посмотри в зеркало.",
         "Такой вот парадокс: мы совершаем подвиги для тех, кому до нас уже нет никакого дела, а любят нас те, кому мы нужны и без всяких подвигов...",
@@ -110,5 +110,4 @@ def callback(call):
     else:
         callback_call()
 
-
-bot.polling(none_stop = True, interval= 0)
+bot.polling(none_stop = True)
