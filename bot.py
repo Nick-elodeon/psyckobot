@@ -119,7 +119,7 @@ def time(message):
     now = datetime.today()
     date = now.strftime("%d-%m-%Y")
     time = now.strftime("%H:%M:%S")
-    bot.send_message(message.chat.id, "Сегодня, за окном " + date + " и время сейчас " + time)
+    bot.send_message(message.chat.id, "Сегодня, за окном " + date + " и времени сейчас " + time)
 
 @bot.message_handler(content_types = ['text'])
 def callback_call(message):
