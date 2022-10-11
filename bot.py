@@ -7,9 +7,6 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 bot = telebot.TeleBot(os.getenv('TOKEN'))
 
-import locale
-locale.setlocale(locale.LC_ALL, 'ru-Ru')
-
 love = [
 "Если хочешь встретить любовь всей своей жизни — посмотри в зеркало.",
 "Такой вот парадокс: мы совершаем подвиги для тех, кому до нас уже нет никакого дела, а любят нас те, кому мы нужны и без всяких подвигов...",
@@ -122,7 +119,7 @@ def time(message):
     now = datetime.today()
     date = now.strftime("%d-%m-%Y")
     time = now.strftime("%H:%M:%S")
-    bot.send_message(message.chat.id, "Сегодня, за окном " + date + " и время сейчас " + time)
+    bot.send_message(message.chat.id, "Сегодня, за окном " + date + " и время сейчас " + time+3)
 
 @bot.message_handler(content_types = ['text'])
 def callback_call(message):
